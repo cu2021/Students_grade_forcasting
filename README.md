@@ -22,7 +22,7 @@ Our Team aims to:
 - Customizable & Actionable Insights
 
 ## Contributors
-- Our Mentor - Anas Alyan - Data Analyst - LinkedIn Profile:(https://www.linkedin.com/in/anas-alyan-597a581bb/)
+- ### Our Mentor - Anas Alyan - Data Analyst - LinkedIn Profile:(https://www.linkedin.com/in/anas-alyan-597a581bb/)
 - Othman Shabeir - Data Analyst - LinkedIn Profile:(https://www.linkedin.com/in/othmanshbeir/)
 - Sajeda Ali - Data Analyst - LinkedIn Profile: (https://www.linkedin.com/in/sajeda-ali-0583bb123/)
 - Rami Asad - AI Engineer - LinkedIn Profile: (https://www.linkedin.com/in/rami-asad/) 
@@ -30,6 +30,5 @@ Our Team aims to:
 - Sary Hammad - AI Engineer
 - Yousef Jedrini - Web Developer
 - Islam Safia - Web Developer
-- 
 Explore our data science and machine learning notebooks in Google Colab for in-depth analyses and model development. You can access them here(https://colab.research.google.com/drive/12_vx1L07sNDCb_Slde1oyqn4Z8V0W56Z#scrollTo=lkglXQIffXYD).
 
