@@ -7,7 +7,7 @@ Educational institutions often struggle to identify and support students at risk
 Welcome to our AI-Driven Student Success Forecaster web app, developed by Our Team! Predict student success using AI-driven insights.
 
 ### How To Access
-You can access the AI-Driven Student Success Forecaster web application without the need for local installation. Simply visit the following URL:  [link]([https://www.kaggle.com/datasets/dipam7/student-grade-prediction](http://oshbeir.pythonanywhere.com/)).
+You can access the AI-Driven Student Success Forecaster web application without the need for local installation. Simply visit the following URL:  [link]([link]https://www.kaggle.com/datasets/dipam7/student-grade-prediction](http://oshbeir.pythonanywhere.com/)).
 
 ## Goals and Objectives
 Our Team aims to:
@@ -29,5 +29,3 @@ Our Team aims to:
 - Yousef Jedrini - Web Developer
 - Islam Safia - Web Developer
 
-## License
-All rights reserved
