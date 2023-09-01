@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+    <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.1/css/fontawesome.min.css"
+        integrity="sha384-QYIZto+st3yW+o8+5OHfT6S482Zsvz2WfOzpFSXMF9zqeLcFV0/wlZpMtyFcZALm" crossorigin="anonymous">
+    <!-- font family -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="static/CSS/style.css">
+    <script src="static/JS/jquery-3.7.1.min.js"></script>
+    <script>
+        jQuery(document).ready(($) => {
+            $('#myform').submit((e) => {
+                e.preventDefault();
+                let $form = $(e.target);
+                let $data = getFormData($form);
+
+                let dataObj = {
+                    "Medu": $data.Medu && $data.Medu == "1" ? 1: 0 ,
+                    "Fedu": $data.Fedu && $data.Fedu == "1" ? 1: 0 ,
+                    "failures": $data.failures ? parseInt($data.failures) : 0 ,
+                    "goout": $data.goout ? parseInt($data.goout) : 0 ,
+                    "Dalc": $data.Dalc ? parseInt($data.Dalc) : 0 ,
+                    "Walc": $data.Walc ? parseInt($data.Walc) : 0 ,
+                    "absences": $data.absences ? parseInt($data.absences) : 0 ,
+                    "G1":  $data.G1 ? parseInt($data.G1) : 0 ,
+                    "G2":  $data.G2 ? parseInt($data.G2) : 0 ,
+                    "address_U": $data.address_U && $data.address_U == "1" ? 1 : 0 , // urban 1, other 0
+                    "Mjob_health": 0,
+                    "Mjob_other": 0,
+                    "Fjob_teacher": $data.Fjob_teacher && $data.Fjob_teacher == "1" ? 1 : 0 ,
+                    "schoolsup_yes": $data.extra && $data.extra == "1" ? 1 : 0 ,
+                    "model_type": $data.model_type ? $data.model_type : 'regression',
+                };
+
+                if($data.Mjob =="1") {
+                    dataObj.Mjob_health = 1;
+                    dataObj.Mjob_other = 0;
+                }
+
+                if($data.Mjob =="2") {
+                    dataObj.Mjob_health = 0;
+                    dataObj.Mjob_other = 1;
+                }
+
+                if($data.Fjob_teacher == "1") {
+                    dataObj.Fjob_teacher = 1;
+                }
+
+                $.ajax({
+                    type: 'post',
+                    url: '/predict',
+                    data: JSON.stringify(dataObj),
+                    contentType: "application/json; charset=utf-8",
+                    traditional: true,
+                    success: function (data, status) {
+                        $('#popupText').text('Prediction Result: '+ data.prediction);
+                        openPopup();
+                        console.log("Data: " + data + "\nStatus: " + status);
+                    },
+                    error: function(xhr, status, err) {
+                        console.log("ERROR" + err);
+                        $('#popupTitle').text('Network Failed');
+                        $('#popupText').text(err);
+                        openPopup();
+                    }
+                });
+
+                closePopup();
+            });
+
+            function getFormData($form){
+                var unindexed_array = $form.serializeArray();
+                var indexed_array = {};
+
+                $.map(unindexed_array, function(n, i){
+                    indexed_array[n['name']] = n['value'];
+                });
+
+                return indexed_array;
+            }
+        })
+    </script>
+</head>
+<body>
+    <div class="container">
+        <form action="index.html" id="myform">
+            <img src="../static/images/triangle-top.png" alt="" class="triangle-1">
+            <img src="../static/images/triangle-left.png" alt="" class="triangle-2">
+            <img src="../static/images/circle.png" alt="" class="circle">
+            <div class="row">
+                <div class="col-1">
+                    <div class="home-img"
+                        style="height: 100%;display: flex;flex-direction: column;justify-content: end;align-items: end;">
+                        <img src="../static/images/man.png" alt="">
+                        <img src="../static/images/elements.png" alt="" class="elements">
+                    </div>
+                </div>
+                <div class="col-2">
+                    <h1>Students grade forcasting <br><span class="main-title"
+                            style="font-size: 18px;font-weight: 500;"> </span></h1>
+                    <div class="dropdown-content"
+                        style="display: flex;justify-content: space-between;align-items: center;">
+                        <div class="form-box first-form-box">
+                            <h4>Mother Education</h4>
+                            <div class="box">
+                                <div class="dropdown">select
+                                    <span class="left-icon"></span>
+                                    <span class="right-icon"></span>
+                                    <div class="items">
+                                        <a href="#" onclick="store('Medu',0)" style="--i:1;"><span></span>None</a>
+                                        <a href="#" onclick="store('Medu',1)" style="--i:2;"><span></span>Primary education (4th grade)</a>
+                                        <a href="#" onclick="store('Medu',2)" style="--i:3;"><span></span>5th to 9th grade</a>
+                                        <a href="#" onclick="store('Medu',3)" style="--i:4;"><span></span>Secondary education</a>
+                                        <a href="#" onclick="store('Medu',4)" style="--i:5;"><span></span>Higher education</a>
+                                    </div>
+                                </div>
+                                <input type="hidden" name="Medu" id="Medu" value="" />
+                            </div>
+                        </div>
+
+                        <div class="form-box ">
+                            <h4>Father Education</h4>
+                            <div class="box">
+                                <div class="dropdown">select
+                                    <span class="left-icon"></span>
+                                    <span class="right-icon"></span>
+                                    <div class="items">
+                                        <a href="#" onclick="store('Fedu',0)" style="--i:1;"><span></span>None</a>
+                                        <a href="#" onclick="store('Fedu',1)" style="--i:2;"><span></span>Primary Education (4th grade)</a>
+                                        <a href="#" onclick="store('Fedu',2)" style="--i:3;"><span></span>5th to 9th Grade</a>
+                                        <a href="#" onclick="store('Fedu',3)" style="--i:4;"><span></span>Secondary Education</a>
+                                        <a href="#" onclick="store('Fedu',4)" style="--i:5;"><span></span>Higher Education</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <input type="hidden" name="Fedu" id="Fedu" value="" />
+                        </div>
+                    </div>
+
+                    <div class="dropdown-content"
+                        style="display: flex;justify-content: space-between;align-items: center;">
+                        <div class="form-box first-form-box">
+                            <h4>Mother Job</h4>
+                            <div class="box" style="margin-left: 4.6rem;">
+                                <div class="dropdown">select
+                                    <span class="left-icon"></span>
+                                    <span class="right-icon"></span>
+                                    <div class="items">
+                                        <a href="#" onclick="store('Mjob',0)" style="--i:1;"><span></span>Teacher</a>
+                                        <a href="#" onclick="store('Mjob',1)" style="--i:2;"><span></span>Health</a>
+                                        <a href="#" onclick="store('Mjob',0)" style="--i:3;"><span></span>Police</a>
+                                        <a href="#" onclick="store('Mjob',0)" style="--i:4;"><span></span>Administrative</a>
+                                        <a href="#" onclick="store('Mjob',0)" style="--i:5;"><span></span>At Home</a>
+                                        <a href="#" onclick="store('Mjob',2)" style="--i:6;"><span></span>Other</a>
+                                    </div>
+                                </div>
+                                <input type="hidden" name="Mjob" id="Mjob" value="" />
+                                <input type="hidden" name="Mjob_other" id="Mjob_other" value="" />
+                                <input type="hidden" name="Mjob_health" id="Mjob_health" value="" />
+                            </div>
+                        </div>
+
+                        <div class="form-box">
+                            <h4>Fahter Job </h4>
+                            <div class="box">
+                                <div class="dropdown">select
+                                    <span class="left-icon"></span>
+                                    <span class="right-icon"></span>
+                                    <div class="items">
+                                        <a href="#"  onclick="store('Fjob_teacher',1)" style="--i:1;"><span></span>Teacher</a>
+                                        <a href="#"  onclick="store('Fjob_teacher',0)" style="--i:2;"><span></span>Health</a>
+                                        <a href="#"  onclick="store('Fjob_teacher',0)" style="--i:3;"><span></span>Police</a>
+                                        <a href="#"  onclick="store('Fjob_teacher',0)" style="--i:4;"><span></span>Administrative</a>
+                                        <a href="#"  onclick="store('Fjob_teacher',0)" style="--i:5;"><span></span>At home</a>
+                                        <a href="#"  onclick="store('Fjob_teacher',0)" style="--i:6;"><span></span>Other</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <input type="hidden" name="Fjob" id="Fjob" value="" />
+                            <input type="hidden" name="Fjob_teacher" id="Fjob_teacher" value="" />
+                        </div>
+
+
+
+
+                    </div>
+
+                    <div class="container-box-num" style="display: flex;justify-content: space-between;">
+                        <div class="container-num" style="display: flex;justify-content: space-between;">
+                            <h4>Number of failures</h4>
+                            <input type="number" min="0" max="3" step="1" class="numberInput"
+                                placeholder="Enter Number between 0&3" style="width: 270px;margin-left: 4rem;" name="failures" id="failures" value="">
+                            <p class="errorMessage" style="color: red;"></p>
+                        </div>
+
+                        <div class="container-num">
+                            <h4>First Period Grade</h4>
+                            <input type="number" min="0" max="20" step="1" class="numberInput" name="G1"
+                                placeholder="Enter Number between 0&20" style="width: 270px;">
+                            <p class="errorMessage" style="color: red;"></p>
+                        </div>
+                    </div>
+
+
+                    <div class="container-box-num"
+                        style="display: flex;justify-content: space-between;margin-bottom: 2rem;">
+                        <div class="container-num">
+                            <h4>Second Period grade</h4>
+                            <input type="number" min="0" max="20" step="1" id="numberInput" name="G2"
+                                placeholder="Enter Number between 0&20" style="width: 270px;margin-left: 4rem;">
+                            <p class="errorMessage" style="color: red;"></p>
+                        </div>
+
+                        <div class="container-check-box">
+                            <div class="h4" style="margin-right: 10px; font-weight: 700;">Student's Home Address Type:
+                            </div>
+                            <div class="container-check">
+                                <input type="radio" name="address_U" id="input-1" class="check-input" value="1">
+                                <label for="input-1" class="checkbox">
+                                    <svg viewBox="0 0 22 16" fill="none">
+                                        <path d="M1 6.85L8.09677 14L21 1" />
+                                    </svg>
+                                </label>
+                                <span>urban </span>
+                            </div>
+                            <div class="container-check" style="margin: 0 1rem;">
+                                <input type="radio" name="address_U" id="input-2" class="check-input" value="0">
+                                <label for="input-2" class="checkbox">
+                                    <svg viewBox="0 0 22 16" fill="none">
+                                        <path d="M1 6.85L8.09677 14L21 1" />
+                                    </svg>
+                                </label>
+                                <span>rural </span>
+                            </div>
+
+
+                        </div>
+
+                    </div>
+
+
+
+
+                    <div class="container-check-box" style="display: flex;justify-content: space-between;">
+                        <div class="h4" style="margin-right: 20px; font-weight: 700;">Going Out With Friends:</div>
+                        <div class="container-check">
+                            <input type="radio" name="goout" value="1" id="input-3" class="check-input">
+                            <label for="input-3" class="checkbox">
+                                <svg viewBox="0 0 22 16" fill="none">
+                                    <path d="M1 6.85L8.09677 14L21 1" />
+                                </svg>
+                            </label>
+                            <span>very low</span>
+                        </div>
+                        <div class="container-check" style="margin: 0 1rem;">
+                            <input type="radio" name="goout" value="2" id="input-4" class="check-input">
+                            <label for="input-4" class="checkbox">
+                                <svg viewBox="0 0 22 16" fill="none">
+                                    <path d="M1 6.85L8.09677 14L21 1" />
+                                </svg>
+                            </label>
+                            <span>low </span>
+                        </div>
+                        <div class="container-check" style="margin: 0 1rem;">
+                            <input type="radio" name="goout" value="3" id="input-5" class="check-input">
+                            <label for="input-5" class="checkbox">
+                                <svg viewBox="0 0 22 16" fill="none">
+                                    <path d="M1 6.85L8.09677 14L21 1" />
+                                </svg>
+                            </label>
+                            <span>moderate</span>
+                        </div>
+                        <div class="container-check" style="margin: 0 1rem;">
+                            <input type="radio" name="goout" value="4" id="input-6" class="check-input">
+                            <label for="input-6" class="checkbox">
+                                <svg viewBox="0 0 22 16" fill="none">
+                                    <path d="M1 6.85L8.09677 14L21 1" />
+                                </svg>
+                            </label>
+                            <span>high</span>
+                        </div>
+                        <div class="container-check">
+                            <input type="radio" name="goout" value="5" id="input-7" class="check-input">
+                            <label for="input-7" class="checkbox">
+                                <svg viewBox="0 0 22 16" fill="none">
+                                    <path d="M1 6.85L8.09677 14L21 1" />
+                                </svg>
+                            </label>
+                            <span>very high </span>
+                        </div>
+                    </div>
+
+
+                    <div class="container-check-box" style="display: flex;justify-content: space-between;">
+                        <div class="h4" style="margin-right: 10px; font-weight: 700;">Workday Alcohol Consumption:</div>
+                        <div class="container-check">
+                            <input type="radio" name="Dalc" value="1" id="input-8" class="check-input">
+                            <label for="input-8" class="checkbox">
+                                <svg viewBox="0 0 22 16" fill="none">
+                                    <path d="M1 6.85L8.09677 14L21 1" />
+                                </svg>
+                            </label>
+                            <span>very low</span>
+                        </div>
+                        <div class="container-check" style="margin: 0 1rem;">
+                            <input type="radio" name="Dalc" value="2" id="input-9" class="check-input">
+                            <label for="input-9" class="checkbox">
+                                <svg viewBox="0 0 22 16" fill="none">
+                                    <path d="M1 6.85L8.09677 14L21 1" />
+                                </svg>
+                            </label>
+                            <span>low </span>
+                        </div>
+                        <div class="container-check" style="margin: 0 1rem;">
+                            <input type="radio" name="Dalc" value="3" id="input-10" class="check-input">
+                            <label for="input-10" class="checkbox">
+                                <svg viewBox="0 0 22 16" fill="none">
+                                    <path d="M1 6.85L8.09677 14L21 1" />
+                                </svg>
+                            </label>
+                            <span>moderate</span>
+                        </div>
+                        <div class="container-check" style="margin: 0 1rem;">
+                            <input type="radio" name="Dalc" value="4" id="input-11" class="check-input">
+                            <label for="input-11" class="checkbox">
+                                <svg viewBox="0 0 22 16" fill="none">
+                                    <path d="M1 6.85L8.09677 14L21 1" />
+                                </svg>
+                            </label>
+                            <span>high</span>
+                        </div>
+                        <div class="container-check">
+                            <input type="radio" name="Dalc" value="5" id="input-12" class="check-input">
+                            <label for="input-12" class="checkbox">
+                                <svg viewBox="0 0 22 16" fill="none">
+                                    <path d="M1 6.85L8.09677 14L21 1" />
+                                </svg>
+                            </label>
+                            <span>very high </span>
+                        </div>
+                    </div>
+
+
+
+                    <div class="container-check-box" style="display: flex;justify-content: space-between;">
+                        <div class="h4" style="margin-right: 10px; font-weight: 700;">Weekend Alcohol Consumption:</div>
+                        <div class="container-check">
+                            <input type="radio" name="Walc" value="1" id="input-13" class="check-input">
+                            <label for="input-13" class="checkbox">
+                                <svg viewBox="0 0 22 16" fill="none">
+                                    <path d="M1 6.85L8.09677 14L21 1" />
+                                </svg>
+                            </label>
+                            <span>very low</span>
+                        </div>
+                        <div class="container-check" style="margin: 0 1rem;">
+                            <input type="radio" name="Walc" value="2" id="input-14" class="check-input">
+                            <label for="input-14" class="checkbox">
+                                <svg viewBox="0 0 22 16" fill="none">
+                                    <path d="M1 6.85L8.09677 14L21 1" />
+                                </svg>
+                            </label>
+                            <span>low </span>
+                        </div>
+                        <div class="container-check" style="margin: 0 1rem;">
+                            <input type="radio" name="Walc" value="3" id="input-15" class="check-input">
+                            <label for="input-15" class="checkbox">
+                                <svg viewBox="0 0 22 16" fill="none">
+                                    <path d="M1 6.85L8.09677 14L21 1" />
+                                </svg>
+                            </label>
+                            <span>moderate</span>
+                        </div>
+                        <div class="container-check" style="margin: 0 1rem;">
+                            <input type="radio" name="Walc" value="4" id="input-16" class="check-input">
+                            <label for="input-16" class="checkbox">
+                                <svg viewBox="0 0 22 16" fill="none">
+                                    <path d="M1 6.85L8.09677 14L21 1" />
+                                </svg>
+                            </label>
+                            <span>high</span>
+                        </div>
+                        <div class="container-check">
+                            <input type="radio" name="Walc" value="5" id="input-17" class="check-input">
+                            <label for="input-17" class="checkbox">
+                                <svg viewBox="0 0 22 16" fill="none">
+                                    <path d="M1 6.85L8.09677 14L21 1" />
+                                </svg>
+                            </label>
+                            <span>very high </span>
+                        </div>
+                    </div>
+
+                    <div class="container-radio" style="display: flex;justify-content: flex-start;margin-top: 2rem;">
+                        <p>Extra Educational Support ? </p>
+                        <div style="margin-left: 1.8rem;">
+                            <label>
+                                <input type="radio" name="extra" value="1">
+                                <i class="fa fa-check" aria-hidden="true"></i>
+                            </label>
+                            <label>
+                                <input type="radio" name="extra" value="0">
+                                <i class="fa fa-times" aria-hidden="false"></i>
+                            </label>
+                        </div>
+                    </div>
+                <div style="display: flex; gap: 300px;">
+                    <div class="form-box" style="width: 450px; display: flex;">
+                            <h4>show result as:</h4>
+                            <div class="box">
+                                <div class="dropdown">select
+                                    <span class="left-icon"></span>
+                                    <span class="right-icon"></span>
+                                    <div class="items">
+                                        <a href="#"  onclick="store('model_type','regression')" style="--i:1;"><span></span>Numerical Grade</a>
+                                        <a href="#"  onclick="store('model_type','binary_classification')" style="--i:2;"><span></span>Pass Or Fail</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <input type="hidden" name="model_type" id="model_type" value="" />
+                        </div>
+                        <div class="container-num" style="width: 450px;">
+                            <h4>absences</h4>
+                            <input type="number" min="0" max="93" step="1" id="numberInput" name="absences"
+                                placeholder="Enter Number between 0&93" style="width: 270px;margin-left:0rem;">
+                            <p class="errorMessage" style="color: red;"></p>
+                        </div>
+                    </div>
+                    <div class="submit-btn" style="margin: 40px auto 0 ; width: 100%;">
+                        <div class="popup" id="popup">
+                            <h2 id="popupTitle"></h2>
+                            <p id="popupText">Successfully Submitted</p>
+                            <button type="button" onclick="closePopup()">OK</button>
+                        </div>
+                        <button type="submit" style="--clr:#fff">
+                            <span>submit</span>
+                            <i></i>
+                        </button>
+                    </div>
+
+
+                </div>
+            </div>
+        </form>
+    </div>
+    <!-- typed js -->
+    <script src="https://unpkg.com/typed.js@2.0.16/dist/typed.umd.js"></script>
+    <script src="static/JS/script.js"></script>
+</body>
+</html>
