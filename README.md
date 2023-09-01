@@ -22,7 +22,7 @@ Our Team aims to:
 - Customizable & Actionable Insights
 
 ## Contributors
-- ##### Our Mentor - Anas Alyan - Data Analyst - LinkedIn Profile:(https://www.linkedin.com/in/anas-alyan-597a581bb/)
+- #### Our Mentor - Anas Alyan - Data Analyst - LinkedIn Profile:(https://www.linkedin.com/in/anas-alyan-597a581bb/)
 - Othman Shabeir - Data Analyst - LinkedIn Profile:(https://www.linkedin.com/in/othmanshbeir/)
 - Sajeda Ali - Data Analyst - LinkedIn Profile: (https://www.linkedin.com/in/sajeda-ali-0583bb123/)
 - Rami Asad - AI Engineer - LinkedIn Profile: (https://www.linkedin.com/in/rami-asad/) 
