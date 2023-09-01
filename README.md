@@ -22,9 +22,9 @@ Our Team aims to:
 - Customizable & Actionable Insights
 
 ## Contributors
-- Othman Shabeir - Data Analyst
-- Sajeda Ali - Data Analyst
-- Rami Asad - AI Engineer
+- Othman Shabeir - Data Analyst - LinkedIn Profile:(https://www.linkedin.com/in/othmanshbeir/)
+- Sajeda Ali - Data Analyst - LinkedIn Profile: (https://www.linkedin.com/in/sajeda-ali-0583bb123/)
+- Rami Asad - AI Engineer LinkedIn Profile: (https://www.linkedin.com/in/rami-asad/) 
 - Shurouq Abu Ewaili - AI Engineer
 - Sary Hammad - AI Engineer
 - Yousef Jedrini - Web Developer
