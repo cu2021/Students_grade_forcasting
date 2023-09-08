@@ -1,10 +1,10 @@
-# AI-Driven Student Success Forecaster Web App
+# AI-Driven Student Success Forecaster Project
 
 ## Problem Statement
 Educational institutions often struggle to identify and support students at risk of academic failure. This web application aims to address this challenge by providing a tool powered by artificial intelligence to predict student success and offer actionable insights for educators.
 
 ## Introduction
-Welcome to our AI-Driven Student Success Forecaster web app, developed by Our Team! Predict student success using AI-driven insights.
+Welcome to our AI-Driven Student Success Forecaster project, developed by Our Team! Predict student success using AI-driven insights.
 
 ### How To Access
 You can access the AI-Driven Student Success Forecaster web application without the need for local installation. Simply visit the following URL: [http://oshbeir.pythonanywhere.com/](http://oshbeir.pythonanywhere.com/)
