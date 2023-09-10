@@ -31,5 +31,5 @@ Our Team aims to:
 - Shurouq Abu Ewaili - AI Engineer - [LinkedIn Profile](https://www.linkedin.com/in/shurouqabuewaili/)
 - Sary Hammad - AI Engineer
 - Yousef Jedrini - Web Developer
-- Islam Safia - Web Developer
+- Islam Safia - Web Developer - [LinkedIn Profile](https://www.linkedin.com/in/islam-safyia-a1967a268)
 
