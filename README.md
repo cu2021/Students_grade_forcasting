@@ -1,4 +1,5 @@
 # AI-Driven Student Success Forecaster Project
+![Project Life cycle](https://github.com/cu2021/Students_grade_forcasting/blob/master/Project%20Life%20Cycle.JPG)
 
 ## Problem Statement
 Educational institutions often struggle to identify and support students at risk of academic failure. This web application aims to address this challenge by providing a tool powered by artificial intelligence to predict student success and offer actionable insights for educators.
@@ -9,6 +10,7 @@ Welcome to our AI-Driven Student Success Forecaster project, developed by Our Te
 ### How To Access
 Access the AI-Driven Student Success Forecaster web application without the need for local installation by simply visiting the following URL: [Student Success Forecaster Web App](http://oshbeir.pythonanywhere.com/)
 
+![web app](https://github.com/cu2021/Students_grade_forcasting/blob/master/web%20app%20demo.png)
 
 ## Goals and Objectives
 Our Team aims to:
