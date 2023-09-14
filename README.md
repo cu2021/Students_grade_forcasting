@@ -26,23 +26,23 @@ You will need Python 3.x and pip installed on your machine.
 
 ### Installation
 1. Clone the repository:
-```
-git clone https://github.com/cu2021/Students_grade_forcasting.git
-```
+   ```
+   git clone https://github.com/cu2021/Students_grade_forcasting.git
+   ```
 2. Navigate to the project directory:
    ```
    cd Student-grade-forcasting_web_app
    ```
 3. Install the required packages using pip:
-```
-pip install -r requirements.txt
-```
+   ```
+   pip install -r requirements.txt
+   ```
 
 ### Usage
 1. Start the Flask web application:
-```
-python app.py
-```
+   ```
+   python app.py
+   ```
 2. Access the Web App in your web browser at [http://localhost:5000](http://localhost:5000).
 
 ## Features
