@@ -18,6 +18,11 @@ Our Team aims to:
 - Provide early intervention for students at risk.
 - Enhance the overall educational experience for both students and educators.
 
+## Features
+- User-Friendly Web Interface
+- Data Analysis & Predictive Modeling
+- Customizable & Actionable Insights
+
 ## Getting Started
 These instructions will help you set up and run the project on your local machine.
 
@@ -44,11 +49,6 @@ You will need Python 3.x and pip installed on your machine.
    python app.py
    ```
 2. Access the Web App in your web browser at [http://localhost:5000](http://localhost:5000).
-
-## Features
-- User-Friendly Web Interface
-- Data Analysis & Predictive Modeling
-- Customizable & Actionable Insights
 
 ## Contributors
 - Our Mentor - Anas Alyan - Data Analyst - [LinkedIn Profile](https://www.linkedin.com/in/anas-alyan-597a581bb/)
